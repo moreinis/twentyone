@@ -1,21 +1,29 @@
-// initialization 
-index=0;
-current=0;
-answer=0;
-target=0;
-var saythem =[];
-var game = [];
-gamecount = counting("you:",game,1,3);
-// counting function
+// initialization
+var count=0;
+var steps=0;
+var game=[];
+var player="";
 
-count=gamecount[0];
-game=gamecount[1];
-counting("me:",game,count,2);
+do {// end at 21
+	// call continug function for user
+player="you";
+steps=prompt("Starting at "+count+", how many steps do you count (1-3)");
+count=counting(player,count,steps);
+// call counting function for computer, at 2 steps each time
+player="me";
+steps=2; // temporary
+count=counting(player,count,steps);
+}
+while (count<21);
+alert ("You win!"); // temporary
 
-function counting(who,sarray,current,steps){
-	for (index = current;index < current+steps; index=index+1) {
-		sarray[index-1]=index;
+// count and display function
+function counting(player,current,steps){
+	game=[];
+	for (index=0;index<steps;index++) {
+		game[index]=current+index+1;
 	}
-	alert(who+" "+sarray.toString());
-	return [current+steps, sarray];
+	alert(player+": "+game);
+	current=parseInt(current)+parseInt(steps);
+	return current;
 }
